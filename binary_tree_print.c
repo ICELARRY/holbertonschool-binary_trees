@@ -1,52 +1,39 @@
-#include "binary_trees.h"
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "binary_trees.h"
 
-#define PRINT_WIDTH 6
+/**
+ * print_tree - recursive helper to print tree sideways
+ * @tree: pointer to the current node
+ * @space: current indentation level
+ */
+static void print_tree(const binary_tree_t *tree, int space)
+{
+    int i;
 
-void binary_tree_print(const binary_tree_t *tree);
-static int height(const binary_tree_t *tree);
-static void print_level(const binary_tree_t *tree, int level, int indent_space);
-static void print_spaces(int count);
+    if (tree == NULL)
+        return;
 
+    /* Increase indentation */
+    space += 10;
+
+    /* Print right child first */
+    print_tree(tree->right, space);
+
+    /* Print current node after spacing */
+    printf("\n");
+    for (i = 10; i < space; i++)
+        putchar(' ');
+    printf("%d\n", tree->n);
+
+    /* Print left child */
+    print_tree(tree->left, space);
+}
+
+/**
+ * binary_tree_print - prints the binary tree
+ * @tree: pointer to the root node of the tree
+ */
 void binary_tree_print(const binary_tree_t *tree)
 {
-    int h, i;
-
-    if (!tree)
-        return;
-
-    h = height(tree);
-    for (i = 1; i <= h; i++)
-    {
-        print_level(tree, i, PRINT_WIDTH * (h - i));
-        printf("\n");
-    }
+    print_tree(tree, 0);
 }
-
-static int height(const binary_tree_t *tree)
-{
-    if (!tree)
-        return 0;
-    else
-    {
-        int l_height = height(tree->left);
-        int r_height = height(tree->right);
-        return (l_height > r_height) ? l_height + 1 : r_height + 1;
-    }
-}
-
-static void print_level(const binary_tree_t *tree, int level, int indent_space)
-{
-    if (!tree)
-        return;
-
-    if (level == 1)
-    {
-        print_spaces(indent_space);
-        printf("(%03d)", tree->n);
-    }
-    else if (level > 1)
-    {
-        print_level(tree->left, level - 1, indent_space);
