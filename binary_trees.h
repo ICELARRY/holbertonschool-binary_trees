@@ -1,9 +1,8 @@
 #ifndef BINARY_TREES_H
 #define BINARY_TREES_H
 
-#include <stddef.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * struct binary_tree_s - Binary tree node
@@ -23,11 +22,10 @@ struct binary_tree_s
 
 typedef struct binary_tree_s binary_tree_t;
 
-/* Function prototypes */
+/* Function Prototypes */
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
-binary_tree_t *binary_tree_insert_left(binary_tree_t *parent, int value);
 binary_tree_t *binary_tree_insert_right(binary_tree_t *parent, int value);
-void binary_tree_delete(binary_tree_t *tree);
-void binary_tree_print(const binary_tree_t *); /* Already provided */
+int binary_tree_is_leaf(const binary_tree_t *node);
+void binary_tree_print(const binary_tree_t *); /* Provided by Holberton */
 
 #endif /* BINARY_TREES_H */
